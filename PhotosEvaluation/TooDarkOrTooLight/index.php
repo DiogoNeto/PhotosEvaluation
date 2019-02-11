@@ -75,18 +75,13 @@ session_start();
 	<!--Interação-->
 	<div id="div2" align="center">
 		<form action="index.php" method="POST" id="form1" name="form1" style="visibility: visible;">
-			<?php require_once '../ClosedEyes/process.php'; ?>
-			<?php $_SESSION['btni']='1' ?>
-			<!--<div id="div3" style="display: block; position: absolute; left:43%; top:0px; width:150px; height:100px; background-color:#FFFFFF; z-index:$_SESSION['btn1'];">
-				<button id="btnStart" class="btn btn-primary" id="btnStart" type="submit" name="not">Iniciar</button>
-			</div>-->
+			<?php require_once '../process.php' ?>
 			<table>
 				<tr>
 					<td><input type="text" style="visibility:hidden; max-height: 500px;" name="i" id="i" value="<?php echo $i; ?>"></td>
 				</tr>
 			</table>
 			<br/>
-			<div style="z-index:-2; ">
 				<table id="tbl1" width="100px" style="visibility:visible;">
 				<tr>
 					<td style="padding: 5px; z-index:-1;">
