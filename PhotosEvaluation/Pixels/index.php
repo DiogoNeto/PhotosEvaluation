@@ -76,10 +76,7 @@ session_start();
 	<div id="div2" align="center">
 
 		<form action="index.php" method="POST" id="form1" name="form1" style="visibility: visible;">
-			<?php require_once '../ClosedEyes/process.php'; ?>
-			<!--<div id="div3" style="display: block; position: absolute; left:43%; top:30px; width:150px; height:100px; background-color:#FFFFFF; z-index: 10;">
-				<button class="btn btn-primary" id="btnStart" type="submit" name="not" onclick="function start();">Iniciar</button>
-			</div>-->
+			<?php require_once '../process.php'; ?>
 			<table>
 				<tr>
 					<td><input type="text" style="visibility:hidden; max-height: 500px;" name="i" id="i" value="<?php echo $i; ?>"></td>
