@@ -14,6 +14,7 @@ session_start();
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<h4 align="center">Por favor, inicie a sessão.</h4>
 	<?php $_SESSION["User"]=""?>
 	<table align="center">
 		<tr>

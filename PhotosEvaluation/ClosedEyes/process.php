@@ -9,21 +9,19 @@ if(isset($_POST['next'])){
 	$user = $_SESSION["User"];
 	$sessao = $_SESSION["Sessao"];
 	$criterio = $_SESSION["Criterio"];
-
-	$a = new DateTime(date("h:i:s"));
+	
+	$a = new DateTime(gmdate("h:i:s"));
 	$diff = $a->getTimestamp() - $_SESSION['StartTime']->getTimestamp();
 	
 	//tempo maximo para responder
-	$maxTime=15;
-	//numero máximo de fotos para avaliar
-	$maxPhotos=5;
+	$maxTime=30;
 
 	//flag para ver se a foto ainda nao fez a três avaliações
 	$fotoOK=false;
 	
 	$i =$_POST['i'];
-	if($_SESSION["User"]=="" || $diff>$maxTime || $i>$maxPhotos){
-		header("Location: ../ClosedEyes/login.php");
+	if($_SESSION["User"]=="" || $diff>$maxTime){
+		header("Location: ../ClosedEyes/final.php");
 	}
 	
 		
@@ -32,16 +30,16 @@ if(isset($_POST['next'])){
 	$j=$n-1;
 	
 
-	$dir ="images/";
+	$dir ="../images/";
 
-		$fileList = glob('images/*');
+		$fileList = glob('../images/*');
 		
 		if($opendir = opendir($dir)){
 			if(($file=readdir($opendir))!==false)
 			{ 
 				if($dir+$file=="$fileList[$j]"){
 					while($fotoOK==false){
-					$sql = "SELECT count(id) as 'total' FROM `imagem` WHERE criterio='$sessao' and foto='$fileList[$j]' and user='$user'";
+					$sql = "SELECT count(id) as 'total' FROM `imagem` WHERE criterio='$criterio' and foto='$fileList[$j]' and user='$user'";
 
 
 					$result = mysqli_query($mysqli, $sql);
@@ -49,18 +47,21 @@ if(isset($_POST['next'])){
 					$num_rows=$values['total'];
 					
 					if($num_rows<3){
-						echo "<img src='$fileList[$j]' style='max-height:500px; max-width:500px'>";
+						echo "<img src='$fileList[$j]' style='height:500px;'>";
 
 						$fotoOK=true;
 					}
 					else{
-						$j++;
+						$j=$j+2;
 					}
 					
 					//insere novo registo na tabela imagem se ja tiver imagem
 					if($_SESSION[img]!=""){
+
 						$img=$_SESSION[img];
+						if($i>1){
 						$mysqli->query("INSERT INTO imagem (user,score,foto,data,criterio,session) VALUES ('$user',1,'$img',now(),'$criterio','$sessao')") or die($mysqli->error());
+					}
 						}
 						$_SESSION[img]=$fileList[$j];
 					}
@@ -80,29 +81,26 @@ if(isset($_POST['not'])){
 	$sessao = $_SESSION["Sessao"];
 	$criterio = $_SESSION["Criterio"];
 
-	$a = new DateTime(date("h:i:s"));
+	$a = new DateTime(gmdate("h:i:s"));
 	$diff = $a->getTimestamp() - $_SESSION['StartTime']->getTimestamp();
 	
 	//tempo maximo para responder
-	$maxTime=15;
-	//numero máximo de fotos para avaliar
-	$maxPhotos=5;
+	$maxTime=30;
 
 	$i =$_POST['i'];
 
-	if($_SESSION["User"]=="" || $diff>$maxTime || $i>$maxPhotos){
-		header("Location: ../ClosedEyes/login.php");
+	if($_SESSION["User"]=="" || $diff>$maxTime ){
+		header("Location: ../ClosedEyes/final.php");
 	}
 
-		$mysqli->query("UPDATE imagens SET Interactions = Interactions + 1 WHERE id='$i'") or die($mysqli->error());
 
 	$i++;
 	$n=$i*$criterio;
 	$j=$n-1;
 
-	$dir ="images/";
+	$dir ="../images/";
 
-		$fileList = glob('images/*');
+		$fileList = glob('../images/*');
 		//array scandir ( string $dir [, int $sorting_order = SCANDIR_SORT_ASCENDING [, resource $context ]] )
 
 		if($opendir = opendir($dir)){
@@ -110,7 +108,7 @@ if(isset($_POST['not'])){
 			{ 
 				if($dir+$file=="$fileList[$j]"){
 					while($fotoOK==false){
-					$sql = "SELECT count(id) as 'total' FROM `imagem` WHERE criterio='$sessao' and foto='$fileList[$j]' and user='$user'";
+					$sql = "SELECT count(id) as 'total' FROM `imagem` WHERE criterio='$criterio' and foto='$fileList[$j]' and user='$user'";
 
 					$result = mysqli_query($mysqli, $sql);
 					$values = mysqli_fetch_assoc($result);
@@ -118,15 +116,18 @@ if(isset($_POST['not'])){
 					
 					if($num_rows<3){
 						$_SESSION["Img"]="$fileList[$j]";
-						echo "<img src='$fileList[$j]' style='max-height:500px; max-width:500px'>";
+						echo "<img src='$fileList[$j]' style='height:500px;'>";
 						$fotoOK=true;
 					}
 					else{
-						$j++;
+						$j=$j+2;
 					}
 
+
 					//insere novo registo na tabela imagem
+					if($i>1){
 					$mysqli->query("INSERT INTO imagem (user,score,foto,data,criterio,session) VALUES ('$user',0,'$fileList[$j]',now(),'$criterio','$sessao')") or die($mysqli->error());
+				}
 				}
 			}
 			}
@@ -137,36 +138,9 @@ if(isset($_POST['not'])){
 }
 
 
-if(isset($_POST['start'])){
-	$i =$_POST['i'];
-
-	$i++;
-	$dir ="images/";
 
 
-	$sql = "SELECT Path FROM imagens where id=$i";
-
-		if($res = $mysqli->query($sql)){
-			$data = mysqli_query($mysqli, $sql);
-			$row = mysqli_fetch_assoc($data);
-			$path = $row['Path'];
-		}
-
-
-		if ($opendir = opendir($dir)){
-			if(($file=readdir($opendir))!==false)
-			{ 
-				if($dir+$file=="$path"){
-					echo "<img src='$path'>";
-				}
-			}
-		}
-
-	if($path==""){
-		header("Location: ../ClosedEyes/index.html");
-	}
-}
-
+//login
 if(isset($_POST['login'])){
 	$User=$_POST['User'];
 	$Password=$_POST['Password'];
@@ -174,11 +148,62 @@ if(isset($_POST['login'])){
 	// Set session variables
 	$_SESSION["User"] = $_POST['User'];
 	$_SESSION["Password"] = $_POST['Password'];
-	$_SESSION['StartTime']=new DateTime(date("h:i:s"));
-	$_SESSION["Sessao"] = rand(1,2);	
-	$_SESSION["Criterio"] = rand(1,10);
+	$_SESSION['StartTime']=new DateTime(gmdate("h:i:s"));
+	$_SESSION["Sessao"] = rand(1,10);	
+	$_SESSION["Criterio"] = rand(1,3);
 	$_SESSION["Img"] = "";
 	
+
+	//tempo maximo para responder
+	$maxTime=30;
+
+	//flag para ver se a foto ainda nao fez a três avaliações
+	$fotoOK=false;
+
+	//echo "Session variables are set.";
+
+	$result=0;
+
+	$sql = "SELECT id, HoraInicial, HoraFinal FROM login WHERE user='$User' and password='$Password'";
+
+	if($res = $mysqli->query($sql)){
+			$data = mysqli_query($mysqli, $sql);
+			$row = mysqli_fetch_assoc($data);
+			$idd = $row['id'];
+			$hInicial = $row['HoraInicial'];
+			$hFinal = $row['HoraFinal'];			
+		}
+
+	
+	if($hInicial <= gmdate("H:i:s") && $hFinal >= gmdate("H:i:s")){
+		if($_SESSION["Criterio"] == 1)
+			header("Location: ../ClosedEyes/index.php");
+		if($_SESSION["Criterio"] ==2)
+			header("Location: ../TooDarkOrTooLight/index.php");
+		if($_SESSION["Criterio"] ==3)
+			header("Location: ../Pixels/index.php");
+		if($_SESSION["Criterio"] == 4)
+			header("Location: ../HairAcrossEyes/index.php");
+		if($_SESSION["Criterio"] == 5)
+			header("Location: ../ShadowsAcrossFace/index.php");
+
+		}
+		else{
+			echo "Utilizador ou palavra passe errada.";
+		}
+	}
+
+//nova avaliação
+if(isset($_POST['restart'])){
+	$User=$_POST['User'];
+	$Password=$_POST['Password'];
+
+	$_SESSION['StartTime']=new DateTime(gmdate("H:i:s"));
+	$_SESSION["Sessao"] = rand(1,10);	
+	$_SESSION["Criterio"] = rand(1,3);
+	$_SESSION["Img"] = "";
+	
+
 
 	echo "Session variables are set.";
 
@@ -194,23 +219,21 @@ if(isset($_POST['login'])){
 
 	
 	if($idd == 1){
-		//$_SESSION['result'] = $result;
-		if($_SESSION["Sessao"] == 1)
-			header("Location: ../ClosedEyes/index.html");
-		if($_SESSION["Sessao"] ==2)
-			header("Location: ../MouthOpen/index.html");
+		if($_SESSION["Criterio"] == 1)
+			header("Location: ../ClosedEyes/index.php");
+		if($_SESSION["Criterio"] == 2)
+			header("Location: ../TooDarkOrTooLight/index.php");
+		if($_SESSION["Criterio"] == 3)
+			header("Location: ../Pixels/index.php");
+		if($_SESSION["Criterio"] == 4)
+			header("Location: ../HairAcrossEyes/index.php");
+		if($_SESSION["Criterio"] == 5)
+			header("Location: ../ShadowsAcrossFace/index.php");
+		
 	}
 	else{
 		echo "Utilizador ou palavra passe errada.";
 	}
+
 }
 
-
-//Login
-//Instruções
-//Tirar botão de proxima imagem
-//DB
-//id user foto criterio score data
-//ver o data sets que o jose menciona na tese e outros data sets como faces in the wild
-//ver as caracteristicas que estao contempladas no iso e comparar com as que estao na tese do jose
-//verificar intrução em html para as imagens n ficarem em cache
