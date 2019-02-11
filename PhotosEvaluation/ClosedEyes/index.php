@@ -66,8 +66,8 @@ session_start();
 	<div id="div1" style="display:none; background-color: #F0F0F0;" width="100%" height="100%">
 		<table class="table" width="100%" height="500px;">
 			<tr>
-				<td align="center" width="50%"><div align="right" ><img style="border:5px solid #ff0000; " src="../ClosedEyes/images/img_34.jpg" height="500px"></div></td>
-				<td align="center" width="50%"><div align="left"><img style="border:5px solid #00ff00;" src="../ClosedEyes/images/closed_eye_0015.jpg_face_1.jpg" height="500px"></div></td>
+				<td align="center" width="50%"><div align="right" ><img style="border:5px solid #ff0000; " src="../images/img_34.jpg" height="500px"></div></td>
+				<td align="center" width="50%"><div align="left"><img style="border:5px solid #00ff00;" src="../images/closed_eye_0015.jpg_face_1.jpg" height="500px"></div></td>
 			<tr>
 		</table>
 		<table align="center" width="100%">
@@ -79,10 +79,7 @@ session_start();
 
 	<div align="center">
 		<form action="index.php" method="POST" id="form1" name="form1" style="visibility: visible;">
-			<?php require_once 'process.php'; ?>
-			<!--<div id="div3" style="display: block; position: absolute; left:43%; top:30px; width:150px; height:100px; background-color:#FFFFFF; z-index: -1;">
-				<button class="btn btn-primary" id="btnStart" type="submit" name="not" onclick="function start();">Iniciar</button>
-			</div>-->
+			<?php require_once '../process.php'; ?>
 			<table>
 				<tr>
 					<td><input type="text" style="visibility: hidden;" name="i" id="i" value="<?php echo $i; ?>"></td>
