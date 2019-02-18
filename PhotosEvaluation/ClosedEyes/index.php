@@ -66,8 +66,8 @@ session_start();
 	<div id="div1" style="display:none; background-color: #F0F0F0;" width="100%" height="100%">
 		<table class="table" width="100%" height="500px;">
 			<tr>
-				<td align="center" width="50%"><div align="right" ><img style="border:5px solid #ff0000; " src="../images/img_34.jpg" height="500px"></div></td>
-				<td align="center" width="50%"><div align="left"><img style="border:5px solid #00ff00;" src="../images/closed_eye_0015.jpg_face_1.jpg" height="500px"></div></td>
+				<td align="center" width="50%"><div align="right" ><img style="border:5px solid #ff0000; " src="../help_images/img_34.jpg" height="500px"></div></td>
+				<td align="center" width="50%"><div align="left"><img style="border:5px solid #00ff00;" src="../help_images/closed_eye_0015.jpg_face_1.jpg" height="500px"></div></td>
 			<tr>
 		</table>
 		<table align="center" width="100%">
