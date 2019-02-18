@@ -60,8 +60,8 @@ session_start();
 	<div id="div1" style="display:none;" style="background-color: #F0F0F0;" width="100%" height="100%">
 		<table class="table" width="100%" height="500px;">
 			<tr>
-				<td align="center" width="50%"><div align="right" ><img style="border:5px solid #ff0000; height: 500px;" src="../images/img_34.jpg"></div></td>
-				<td align="center" width="50%"><div align="left"><img style="border:5px solid #00ff00; height: 500px;" src="../images/shadowsacrossface.jpg" ></div></td>
+				<td align="center" width="50%"><div align="right" ><img style="border:5px solid #ff0000; height: 500px;" src="../help_images/img_34.jpg"></div></td>
+				<td align="center" width="50%"><div align="left"><img style="border:5px solid #00ff00; height: 500px;" src="../help_images/shadowsacrossface.jpg" ></div></td>
 			<tr>
 		</table>
 		<table align="center" width="100%">
