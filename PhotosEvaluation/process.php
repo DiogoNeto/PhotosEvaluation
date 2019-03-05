@@ -147,9 +147,9 @@ if(isset($_POST['login'])){
 	// Set session variables
 	$_SESSION["User"] = $_POST['User'];
 	$_SESSION["Password"] = $_POST['Password'];
-	$_SESSION['StartTime']=new DateTime(gmdate("h:i:s"));
+	$_SESSION['StartTime']=new DateTime(gmdate("H:i:s"));
 	$_SESSION["Sessao"] = rand(1,10);	
-	$_SESSION["Criterio"] = rand(1,3);
+	$_SESSION["Criterio"] = rand(1,5);
 	$_SESSION["Img"] = "";
 	
 
@@ -199,7 +199,7 @@ if(isset($_POST['restart'])){
 
 	$_SESSION['StartTime']=new DateTime(gmdate("H:i:s"));
 	$_SESSION["Sessao"] = rand(1,10);	
-	$_SESSION["Criterio"] = rand(1,3);
+	$_SESSION["Criterio"] = rand(1,5);
 	$_SESSION["Img"] = "";
 	
 
