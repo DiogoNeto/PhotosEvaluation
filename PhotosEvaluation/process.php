@@ -88,7 +88,6 @@ if(isset($_POST['not'])){
 	$maxTime=30;
 
 	$i =$_POST['i'];
-	echo $diff;
 	if($_SESSION["User"]=="" || $diff>$maxTime ){
 		header("Location: ../final.php");
 	}
