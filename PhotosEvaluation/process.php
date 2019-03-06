@@ -26,7 +26,7 @@ if(isset($_POST['next'])){
 	
 		
 	$i++;
-	$n=$i*$criterio;
+	$n=$i*$sessao;
 	$j=$n-1;
 	
 
@@ -94,7 +94,7 @@ if(isset($_POST['not'])){
 
 
 	$i++;
-	$n=$i*$criterio;
+	$n=$i*$sessao;
 	$j=$n-1;
 
 	$dir ="../images/";
